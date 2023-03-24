@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from dataloader import DataLoader
-from model import Model
+from model import model
 from utils import plot_loss
 
 train_data = DataLoader(is_val=False)
