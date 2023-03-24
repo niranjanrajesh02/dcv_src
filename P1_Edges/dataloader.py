@@ -17,7 +17,7 @@ class DataLoader(tf.keras.utils.Sequence):
     self.dim_w = 256
     self.dim_h = 256
     self.args = arg
-    self.base_dir = '/storage/niranjan.rajesh_ug23/DCV_data/BIPEDv1/edges'
+    self.base_dir = '/storage/niranjan.rajesh_ug23/DCV_data/BIPEDv1/BIPED/edges'
     self.is_val = is_val
     self.bs = 32
     self.shuffle=self.is_training
