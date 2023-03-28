@@ -11,25 +11,40 @@ import tensorflow as tf
 
 class DataLoader(tf.keras.utils.Sequence):
     
-  def __init__(self, arg=None, is_val=True):
+  def __init__(self, arg=None, is_val=True, is_test=False):
 
-    self.is_training = True
+    self.is_training = not is_test
     self.dim_w = 256
     self.dim_h = 256
     self.args = arg
-    self.base_dir = '/storage/niranjan.rajesh_ug23/DCV_data/BIPEDv1/BIPED/edges'
+    self.base_dir = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/BIPED/edges'
     self.is_val = is_val
     self.bs = 32
     self.shuffle=self.is_training
     self.data_list = self._build_index()
     self.on_epoch_end()
     self.scale = None
+    # self.input_shape = (None, self.dim_h, self.dim_w, 3)
+    
+    if is_test:
+        self.imgs_shape = []    
+        i_width =  self.dim_w if  self.dim_w%16==0 else (self.dim_w//16+1)*16
+        i_height= self.dim_h if self.dim_h%16==0 else (self.dim_h//16+1)*16
+        self.input_shape = (None,i_height, i_width,3)
+        self.dim_w = i_width
+        self.dim_h = i_height
+        
+        # OMSIV real size= 320,580,3
+  
 
   def _build_index(self):
 
     # base_dir = os.path.join(self.base_dir, self.args.model_state.lower())
-
-    file_path = os.path.join(self.base_dir, 'train_rgb.lst')
+    if self.is_training:
+        file_path = os.path.join(self.base_dir, 'train_rgb.lst')
+    else:
+        file_path = os.path.join(self.base_dir, 'test_rgb.lst')
+        
     with open(file_path,'r') as f:
         file_list = f.readlines()
     file_list = [line.strip() for line in file_list] # to clean the '\n'
@@ -56,6 +71,8 @@ class DataLoader(tf.keras.utils.Sequence):
         for tmp_path in input_path:
             tmp_i = cv.imread(tmp_path)
             tmp_shape = tmp_i.shape[:2]
+            # self.imgs_shape = []
+            # print("imgs_shape", self.imgs_shape)
             self.imgs_shape.append(tmp_shape)
     sample_indices= [input_path, gt_path]
     return sample_indices
