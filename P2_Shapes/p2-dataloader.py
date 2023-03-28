@@ -1,7 +1,7 @@
 import os
 
 
-DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2D/dataset/output'
+DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/output'
 
 shape_count = {}
 
