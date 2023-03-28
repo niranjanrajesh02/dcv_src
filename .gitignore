@@ -1,6 +1,5 @@
-P1_Edges/starter.sh
-P1_Edges/err.log
-P1_Edges/out.log
-
 P1_Edges/Results/Test_Output
 
+*/err.log
+*/starter.sh
+*/out.log
