@@ -1,9 +1,9 @@
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
-from dataloader import DataLoader
-from model import model
-from utils import plot_loss
+from p1_dataloader import DataLoader
+from p1_model import model
+from p1_utils import plot_loss
 
 train_data = DataLoader(is_val=False)
 val_data = DataLoader(is_val=True)
