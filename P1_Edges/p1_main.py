@@ -15,6 +15,7 @@ history = model.fit(train_data, validation_data=val_data, epochs=50, batch_size=
 hist_path = results_path+'/history.npy'
 np.save(hist_path,history.history)
 print("History saved to: ", hist_path)
+
 # summarize history for loss
 plot_loss(history)
 model_path = results_path+'/my_model.h5'
