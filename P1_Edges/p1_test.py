@@ -2,7 +2,6 @@ import tensorflow as tf
 from tensorflow import keras
 from keras.models import load_model
 import os
-from dataloader import DataLoader
 import matplotlib.pyplot as plt
 import cv2 as cv
 import numpy as np
