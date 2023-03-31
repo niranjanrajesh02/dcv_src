@@ -17,8 +17,5 @@ def build_model(num_classes):
 
   model.add(Flatten())
   model.add(Dense(num_classes, activation='softmax'))
-
+  model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
   return model
-
-p2_model = build_model(10)
-p2_model.summary()

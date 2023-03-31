@@ -1,8 +1,11 @@
 import os
 import tensorflow as tf
+import matplotlib.pyplot as plt
 from keras.utils import image_dataset_from_directory
 
-DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2D/dataset/output'
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2Dummy/dataset/output'
 # DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/output'
 
 shape_count = {}
@@ -32,13 +35,24 @@ def make_subdirs():
             os.makedirs(dest)
         os.rename(src, os.path.join(dest, file))
 
-def make_dataset():
-    train_data, test_data = image_dataset_from_directory(DATA_PATH, labels='inferred', label_mode="int", seed=42,
+def make_dataset(path=DATA_PATH):
+    train_data = image_dataset_from_directory(DATA_PATH, labels='inferred', label_mode="categorical", seed=42,
                                                          validation_split=0.2, subset="training", crop_to_aspect_ratio=True,
                                                          batch_size=32)
-    print(train_data.shape)
+    valid_data = image_dataset_from_directory(DATA_PATH, labels='inferred', label_mode="categorical", seed=42,
+                                                         validation_split=0.2, subset="validation", crop_to_aspect_ratio=True,
+                                                         batch_size=32)
+    
+    
+    class_names = train_data.class_names
+    
+    return train_data, valid_data, class_names
 
+
+    
+    
+    
 if __name__ == "__main__":
     # rename_files()
     # make_subdirs()
-    make_dataset()
+    train_data, valid_data, class_names = make_dataset()
