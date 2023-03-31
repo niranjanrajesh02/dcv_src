@@ -5,8 +5,8 @@ from keras.utils import image_dataset_from_directory
 
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
-DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2Dummy/dataset/output'
-# DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/output'
+# DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2Dummy/dataset/output'
+DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/output'
 
 shape_count = {}
 
