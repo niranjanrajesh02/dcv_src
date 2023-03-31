@@ -2,7 +2,7 @@ import tensorflow as tf
 from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Input
 
 
-P1_MODEL_PATH = "C:/Niranjan/Ashoka/Research/DCV/Models/P1_Edges2.0/my_model.h5"
+P1_MODEL_PATH = "C:/Niranjan/Ashoka/Research/DCV/Models/P1_Edges3.0/my_model.h5"
 
 def build_model(num_classes):
   model = tf.keras.models.load_model(P1_MODEL_PATH)

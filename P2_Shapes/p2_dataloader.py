@@ -1,7 +1,9 @@
 import os
+import tensorflow as tf
+from keras.utils import image_dataset_from_directory
 
-
-DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/output'
+DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2D/dataset/output'
+# DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/output'
 
 shape_count = {}
 
@@ -29,7 +31,14 @@ def make_subdirs():
         if not os.path.exists(dest):
             os.makedirs(dest)
         os.rename(src, os.path.join(dest, file))
-        
+
+def make_dataset():
+    train_data, test_data = image_dataset_from_directory(DATA_PATH, labels='inferred', label_mode="int", seed=42,
+                                                         validation_split=0.2, subset="training", crop_to_aspect_ratio=True,
+                                                         batch_size=32)
+    print(train_data.shape)
+
 if __name__ == "__main__":
     # rename_files()
-    make_subdirs()
+    # make_subdirs()
+    make_dataset()

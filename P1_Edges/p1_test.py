@@ -5,6 +5,7 @@ import os
 import matplotlib.pyplot as plt
 import cv2 as cv
 import numpy as np
+from p1_utils import resize_image
 
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 new_model = load_model('C:/Niranjan/Ashoka/Research/DCV/dcv_src/P1_Edges/Results/my_model.h5')
@@ -17,10 +18,13 @@ test_imgs = os.listdir(test_data_path)
 
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
 for img in test_imgs:
-    img_x = cv.imread(test_data_path+img)
+    img_arr = cv.imread(test_data_path+img)
+    img_x = resize_image(img_arr, 256, 256)
+    
+    
     pred = new_model.predict(np.expand_dims(img_x, axis=0),batch_size=1)
     
-    axs[0].imshow(img_x)
+    axs[0].imshow(img_arr)
     axs[0].axis('off')
     axs[0].set_title('Input Image')
     axs[1].imshow(pred[0], cmap='Greys')
