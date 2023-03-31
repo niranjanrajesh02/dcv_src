@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-results_path = '/home/niranjan.rajesh_ug23/DCV/dcv_src/P1_Edges/Results'
+results_path = '/home/niranjan.rajesh_ug23/DCV/dcv_src/P2_Shapes/Results'
 
 def plot_loss(history):
     plt.plot(history.history['loss'])
