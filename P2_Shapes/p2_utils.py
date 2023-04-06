@@ -6,6 +6,7 @@ import numpy as np
 results_path = '/home/niranjan.rajesh_ug23/DCV/dcv_src/P2_Shapes/Results'
 
 def plot_loss(history):
+    plt.clf()
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
     plt.title('model loss')
@@ -16,6 +17,7 @@ def plot_loss(history):
     plt.savefig(plot_path)
     
 def plot_accuracy(history):
+    plt.clf()
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
     plt.title('model accuracy')
