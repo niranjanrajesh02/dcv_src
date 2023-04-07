@@ -15,7 +15,7 @@ def build_model(num_classes):
     layer.trainable = False
 
   model.add(Conv2D(32, (3,3), padding='same', name='p2_conv_1'))
-  model.add(Conv2D(64 (3,3), padding='same', name='p2_conv_2'))
+  model.add(Conv2D(64, (3,3), padding='same', name='p2_conv_2'))
   model.add(MaxPool2D((2,2), padding='same', name='p2_maxpool_1'))
 
   model.add(Flatten())
