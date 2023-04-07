@@ -4,14 +4,27 @@ import matplotlib.pyplot as plt
 from p2_model import build_model
 from p2_utils import plot_loss, plot_accuracy
 from p2_dataloader import make_dataset
+import argparse
 
-train_data, valid_data, class_names = make_dataset()
+parser = argparse.ArgumentParser(description='DCV Phase 2')
+
+parser.add_argument('--environment', type=str, default='hpc', help='Whether to run on HPC or local machine')
+parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train the model')
+parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training the model')
+parser.add_argument('--model_name', type=str, default='my_model', help='Name of the saved model file')
+
+args = parser.parse_args()
+
+
+
+train_data, valid_data, class_names = make_dataset(args.environment)
+
 results_path = '/home/niranjan.rajesh_ug23/DCV/dcv_src/P2_Shapes/Results'
 
 
 early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=10, restore_best_weights=True)
-model = build_model(len(class_names))
-history = model.fit(train_data, validation_data=valid_data, epochs=100, batch_size=32, verbose=1, callbacks=[])
+model = build_model(len(class_names), args.environment)
+history = model.fit(train_data, validation_data=valid_data, epochs=args.epochs, batch_size=args.batch_size, verbose=1, callbacks=[])
 hist_path = results_path+'/history.npy'
 np.save(hist_path,history.history)
 print("History saved to: ", hist_path)
