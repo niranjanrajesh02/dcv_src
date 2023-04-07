@@ -45,6 +45,7 @@ def make_dataset(path=DATA_PATH):
     
     
     class_names = train_data.class_names
+    print("Class Names: ", class_names)
     
     return train_data, valid_data, class_names
 
@@ -56,3 +57,16 @@ if __name__ == "__main__":
     # rename_files()
     # make_subdirs()
     train_data, valid_data, class_names = make_dataset()
+    image_batch, label_batch = next(iter(train_data))
+    
+    plt.figure(figsize=(10, 10))
+    for i in range(9):
+        ax = plt.subplot(3, 3, i + 1)
+        plt.imshow(image_batch[i].numpy().astype("uint8"))
+        label = label_batch[i]
+        # plt.title(class_names[label])
+        print(label)
+        plt.axis("off")
+        plt.savefig("C:/Niranjan/Ashoka/Research/DCV/dcv_src/P2_Shapes/data_vis.jpg")
+
+    print(class_names)
