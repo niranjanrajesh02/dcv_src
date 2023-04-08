@@ -2,10 +2,14 @@ import tensorflow as tf
 from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Input
 
 
-P1_MODEL_PATH = "/home/niranjan.rajesh_ug23/DCV/models/best_p1/my_model.h5"
-# P1_MODEL_PATH = "C:/Niranjan/Ashoka/Research/DCV/Models/P1_Edges3.0/my_model.h5"
-
-def build_model(num_classes):
+def build_model(num_classes, env):
+      
+  if env == 'hpc':
+        P1_MODEL_PATH = "/home/niranjan.rajesh_ug23/DCV/models/best_p1/my_model.h5"
+  elif env == 'local':
+        P1_MODEL_PATH = "C:/Niranjan/Ashoka/Research/DCV/Models/P1_Edges3.0/my_model.h5"
+      
+      
   model = tf.keras.models.load_model(P1_MODEL_PATH)
 
   # removing the deconv and upsampling layers
