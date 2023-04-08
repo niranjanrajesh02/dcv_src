@@ -2,21 +2,25 @@ import tensorflow as tf
 from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Input
 
 
-def build_model(num_classes, env):
+
+def build_model(num_classes, args):
       
+  env = args.environment
+  new_model = args.new_model
+  
   if env == 'hpc':
         P1_MODEL_PATH = "/home/niranjan.rajesh_ug23/DCV/models/best_p1/my_model.h5"
   elif env == 'local':
         P1_MODEL_PATH = "C:/Niranjan/Ashoka/Research/DCV/Models/P1_Edges3.0/my_model.h5"
-      
       
   model = tf.keras.models.load_model(P1_MODEL_PATH)
 
   # removing the deconv and upsampling layers
   model = tf.keras.models.Sequential(model.layers[:-5])
   
-  for layer in model.layers:
-    layer.trainable = False
+  if not new_model:
+      for layer in model.layers:
+            layer.trainable = False
 
   model.add(Conv2D(32, (3,3), padding='same', name='p2_conv_1'))
   model.add(Conv2D(64, (3,3), padding='same', name='p2_conv_2'))
