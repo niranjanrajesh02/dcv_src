@@ -1,5 +1,6 @@
 from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, Input, Conv2DTranspose, Dropout
 from keras.models import Sequential
+from keras.optimizers import Adam, SGD
 from keras import regularizers
 
 # model.add(Input(shape=(256,256,3)))
@@ -17,4 +18,5 @@ model.add(UpSampling2D((2, 2)))
 model.add(Conv2D(1, (3, 3), activation='sigmoid', padding='same'))
 
 # Compile the model
-model.compile(optimizer='adam', loss='binary_crossentropy')
+opt = SGD(lr=1e-3)
+model.compile(optimizer=opt, loss='binary_crossentropy')
