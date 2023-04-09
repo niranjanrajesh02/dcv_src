@@ -11,6 +11,8 @@ parser = argparse.ArgumentParser(description='DCV Phase 2')
 parser.add_argument('--environment', type=str, default='hpc', help='Whether to run on HPC or local machine')
 parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train the model')
 parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training the model')
+parser.add_argument('--learning_rate', type=float, default=1e-2, help='Learning Rate for Optimizer')
+parser.add_argument('--freeze_weights', type=bool, default=True, help='Whether to freeze weights of pretrained layers')
 parser.add_argument('--model_name', type=str, default='my_model', help='Name of the saved model file')
 parser.add_argument('--new_model', type=bool, default=False, help='Whether to use a new model or load P1 saved model')
 

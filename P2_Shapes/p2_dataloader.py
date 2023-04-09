@@ -62,7 +62,7 @@ def make_dataset(env):
     
 if __name__ == "__main__":
     
-    train_data, valid_data, class_names = make_dataset()
+    train_data, valid_data, class_names = make_dataset('local')
     image_batch, label_batch = next(iter(train_data))
     
     plt.figure(figsize=(10, 10))
