@@ -36,7 +36,7 @@ def build_model(num_classes, args):
 #   model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
   
   model = keras.models.Sequential([
-    Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(64,64,1)),
+    Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(256, 256, 3)),
     MaxPooling2D(pool_size=(2,2)),
     Conv2D(64, kernel_size=(3,3), activation='relu'),
     MaxPooling2D(pool_size=(2,2)),
