@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow import keras
-from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Input
+from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Input, Dropout
 from keras.optimizers import Adam, SGD 
 from keras import regularizers
 
@@ -26,11 +26,19 @@ def build_model(num_classes, args):
       model.add(Conv2D(64, (3,3), padding='same', name='p2_conv_2', activation='relu'))
       model.add(MaxPooling2D((2,2), padding='same', name='p2_maxpool_1'))
 
+      model.add(Conv2D(128, (3,3), padding='same', name='p2_conv_3', activation='relu'))
+      model.add(Conv2D(128, (3,3), padding='same', name='p2_conv_4', activation='relu'))
+      model.add(MaxPooling2D((2,2), padding='same', name='p2_maxpool_2'))
+
       model.add(Flatten())
-      model.add(Dense(128, activation='relu', name='p2_dense_1'))
+      model.add(Dense(512, activation='relu', name='p2_dense_1'))
+      model.add(Dropout(rate=0.3))
+      model.add(Dense(256, activation='relu', name='p2_dense_2'))
+      model.add(Dropout(rate=0.3))
+
       model.add(Dense(num_classes, activation='softmax', name='p2_out'))
       
-      opt = SGD(lr=args.learning_rate)
+      opt = Adam(lr=args.learning_rate)
       model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     
     
