@@ -32,9 +32,9 @@ def build_model(num_classes, args):
 
       model.add(Flatten())
       model.add(Dense(512, activation='relu', name='p2_dense_1'))
-      model.add(Dropout(rate=0.3))
+      model.add(Dropout(rate=0.4))
       model.add(Dense(256, activation='relu', name='p2_dense_2'))
-      model.add(Dropout(rate=0.3))
+      model.add(Dropout(rate=0.4))
 
       model.add(Dense(num_classes, activation='softmax', name='p2_out'))
       
