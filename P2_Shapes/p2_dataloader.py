@@ -2,6 +2,7 @@ import os
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from keras.utils import image_dataset_from_directory
+import shutil
 
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
@@ -36,9 +37,9 @@ def make_subdirs():
 
 def make_dataset(env):
     if env == 'hpc':
-        DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/output'
+        DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/train'
     elif env == 'local':
-        DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2Dummy/dataset/output'
+        DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2Dummy/dataset/train'
     
     # rename_files()
     # make_subdirs()
@@ -57,22 +58,54 @@ def make_dataset(env):
     return train_data, valid_data, class_names
 
 
+def train_test(env):
+    if env == 'hpc':
+        DATA_PATH = '/storage/niranjan.rajesh_ug23/DCV_data/Shapes2D/'
+    elif env == 'local':
+        DATA_PATH = 'C:/Niranjan/Ashoka/Research/DCV/Datasets/Shapes2Dummy/Dataset/'
+        
+    train_path = os.path.join(DATA_PATH, 'train')
+    test_path = os.path.join(DATA_PATH, 'test')
+
+    for class_folder in os.listdir(train_path):
+        class_path = os.path.join(train_path, class_folder)
+        test_class_path = os.path.join(test_path, class_folder)
+        
+        if not os.path.exists(test_class_path):
+            # Create the folder if it doesn't exist
+            os.makedirs(test_class_path)    
+            
+        count = 0
+        for img in os.listdir(class_path):
+            if count >= 500:
+                break
+            img_path = os.path.join(class_path, img)
+            shutil.move(img_path, test_class_path)
+            count += 1
+            
+            
+    
+    
+    
+
     
     
     
 if __name__ == "__main__":
     
-    train_data, valid_data, class_names = make_dataset('local')
-    image_batch, label_batch = next(iter(train_data))
+    # train_data, valid_data, class_names = make_dataset('local')
+    # image_batch, label_batch = next(iter(train_data))
     
-    plt.figure(figsize=(10, 10))
-    for i in range(9):
-        ax = plt.subplot(3, 3, i + 1)
-        plt.imshow(image_batch[i].numpy().astype("uint8"))
-        label = label_batch[i]
-        # plt.title(class_names[label])
-        print(label)
-        plt.axis("off")
-        plt.savefig("C:/Niranjan/Ashoka/Research/DCV/dcv_src/P2_Shapes/data_vis.jpg")
+    # plt.figure(figsize=(10, 10))
+    # for i in range(9):
+    #     ax = plt.subplot(3, 3, i + 1)
+    #     plt.imshow(image_batch[i].numpy().astype("uint8"))
+    #     label = label_batch[i]
+    #     # plt.title(class_names[label])
+    #     print(label)
+    #     plt.axis("off")
+    #     plt.savefig("C:/Niranjan/Ashoka/Research/DCV/dcv_src/P2_Shapes/data_vis.jpg")
 
-    print(class_names)
+    # print(class_names)
+    
+    train_test(env='hpc')
