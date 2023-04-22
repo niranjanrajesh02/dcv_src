@@ -14,7 +14,7 @@ def train_vanilla(args):
     model = build_model(len(class_names), args)
 
     early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=10, restore_best_weights=True)
-    history = model.fit(train_data, validation_data=valid_data, epochs=args.epochs, batch_size=args.batch_size, verbose=1, callbacks=[early_stop])
+    history = model.fit(train_data, validation_data=valid_data, epochs=args.epochs, batch_size=args.batch_size, verbose=1, callbacks=[])
     hist_path = results_path+'/history.npy'
     np.save(hist_path,history.history)
     print("History saved to: ", hist_path)
