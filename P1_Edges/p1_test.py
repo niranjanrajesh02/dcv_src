@@ -15,7 +15,6 @@ results_path = "C:/Niranjan/Ashoka/Research/DCV/dcv_src/P1_Edges/Results/Test_Ou
 
 test_imgs = os.listdir(test_data_path)
 
-
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
 for img in test_imgs:
     img_arr = cv.imread(test_data_path+img)

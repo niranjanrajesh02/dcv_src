@@ -12,7 +12,7 @@ def build_model(num_classes, args):
   elif args.environment == 'local':
         P1_MODEL_PATH = "C:/Niranjan/Ashoka/Research/DCV/Models/P1_Edges3.0/my_model.h5"    
 
-  if not args.new_model:
+  if not args.vanilla:
       model = tf.keras.models.load_model(P1_MODEL_PATH)
 
       # removing the deconv and upsampling layers
@@ -42,19 +42,32 @@ def build_model(num_classes, args):
       model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     
     
-  elif args.new_model:
-    model = keras.models.Sequential([
-      Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(256, 256, 3)),
-      MaxPooling2D(pool_size=(2,2)),
-      Conv2D(64, kernel_size=(3,3), activation='relu'),
-      MaxPooling2D(pool_size=(2,2)),
-      Flatten(),
-      Dense(128, activation='relu'),
-      Dense(num_classes, activation='softmax')
-    ])
-    model.compile(optimizer='adam',
-                loss='categorical_crossentropy',
-                metrics=['accuracy'])
+  elif args.vanilla:
+      model = Sequential()
+      # Add convolutional layers to extract edges
+      model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(256, 256, 3), kernel_regularizer=regularizers.l2(0.01)))
+      model.add(Dropout(0.5))
+      model.add(MaxPooling2D((2, 2), padding='same'))
+      
+      model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
+      model.add(Conv2D(64, (3,3), padding='same', activation='relu'))
+      model.add(MaxPooling2D((2,2), padding='same'))
+
+      model.add(Conv2D(128, (3,3), padding='same', activation='relu'))
+      model.add(Conv2D(128, (3,3), padding='same',  activation='relu'))
+      model.add(MaxPooling2D((2,2), padding='same'))
+
+      model.add(Flatten())
+      model.add(Dense(512, activation='relu'))
+      model.add(Dropout(rate=0.4))
+      model.add(Dense(256, activation='relu'))
+      model.add(Dropout(rate=0.4))
+
+      model.add(Dense(num_classes, activation='softmax'))
+      
+      
+      opt = Adam(lr=args.learning_rate)
+      model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
 
 
   return model
