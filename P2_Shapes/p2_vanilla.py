@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from p2_model import build_model
-from p2_utils import plot_loss, plot_accuracy
+from p2_utils import plot_vanilla_loss, plot_vanilla_accuracy
 from p2_dataloader import make_dataset
 
 
@@ -20,8 +20,9 @@ def train_vanilla(args):
     print("History saved to: ", hist_path)
 
     # summarize history for loss and accuracy
-    plot_loss(history)
-    plot_accuracy(history)
+
+    plot_vanilla_loss(history)
+    plot_vanilla_accuracy(history)
 
     model_path = results_path+'/p2_van_model.h5'
     model.save(model_path)
