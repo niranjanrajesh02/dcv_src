@@ -3,7 +3,7 @@ from tensorflow import keras
 from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Input, Dropout
 from keras.optimizers import Adam, SGD 
 from keras import regularizers
-
+from keras.models import Sequential
 
 def build_model(num_classes, args):
       

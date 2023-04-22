@@ -25,4 +25,4 @@ def train_vanilla(args):
 
     model_path = results_path+'/p2_van_model.h5'
     model.save(model_path)
-    print("Model saved to: ", model_path)
+    print("Vanilla Model saved to: ", model_path)
