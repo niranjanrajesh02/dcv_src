@@ -56,8 +56,8 @@ history = dcv_model.fit(train_ds, validation_data=valid_ds, epochs=1, batch_size
 print("Model training complete")
 
 
-plot_accuracy(history)
-plot_loss(history)
+plot_accuracy(history, "DCV")
+plot_loss(history, "DCV")
 
 
 model_path = results_path+'/bench_dcv.h5'
