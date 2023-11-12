@@ -48,7 +48,7 @@ valid_ds = valid_ds.map(preprocess_img).batch(32)
 
 # Model Setup
 csv_logger = CSVLogger(f"{results_path}/dcv_history.csv", append=True)
-early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=5, restore_best_weights=True)
+early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, restore_best_weights=True)
 dcv_model.compile(loss="sparse_categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
 
 print("Starting to train model ...")
