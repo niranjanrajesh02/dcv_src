@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 from keras import datasets, layers, models
 import tensorflow_datasets as tfds
 from bench_utils import plot_accuracy, plot_loss
+from keras.optimizers import Adam
+from keras.layers import Dense, Conv2D
+
 
 # Load and Tweak Model
 model_path = "/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Models/p2_model.h5"
