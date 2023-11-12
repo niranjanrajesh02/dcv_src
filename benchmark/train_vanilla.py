@@ -17,7 +17,7 @@ data_path = "/storage/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV_data/imagen
 dcv_model = tf.keras.models.load_model(model_path)
 dcv_model = tf.keras.models.Sequential(dcv_model.layers[:-1])
 dcv_model.add(Dense(10, activation='softmax', name='test_out'))
-vanilla_model = tf.keras.Sequential().from_config(model.get_config())
+vanilla_model = tf.keras.Sequential().from_config(dcv_model.get_config())
 del dcv_model
 
 
