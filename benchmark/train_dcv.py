@@ -6,7 +6,7 @@ import tensorflow_datasets as tfds
 from bench_utils import plot_accuracy, plot_loss
 
 # Load and Tweak Model
-model_path = "/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/p2_model.h5"
+model_path = "/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Models/p2_model.h5"
 
 dcv_model = tf.keras.models.load_model(model_path)
 dcv_model = tf.keras.models.Sequential(dcv_model.layers[:-1])
