@@ -18,13 +18,15 @@ dcv_model.add(Dense(10, activation='softmax', name='test_out'))
 
 
 # Load and Preprocess Data
-data_path = " /storage/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV_data/imagenette2-320/imagenette2-320/train"
+data_path = "/storage/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV_data/imagenette2-320/imagenette2-320/train"
 data  = tf.keras.utils.image_dataset_from_directory(
   data_path,
   validation_split=0.2,
   seed=123,
   shuffle=True,
   subset="both",
+  labels="inferred",
+  label_mode="int",
   batch_size=None)
 
 train_ds= data[0]
