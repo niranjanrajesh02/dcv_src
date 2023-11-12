@@ -61,5 +61,5 @@ plot_loss(history, "DCV")
 
 
 model_path = results_path+'/bench_dcv.h5'
-model.save(model_path)
+dcv_model.save(model_path)
 print("Model saved to: ", model_path)
