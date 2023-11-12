@@ -6,6 +6,7 @@ import tensorflow_datasets as tfds
 from bench_utils import plot_accuracy, plot_loss
 from keras.optimizers import Adam
 from keras.layers import Dense, Conv2D
+import tfds_nightly
 
 
 # Load and Tweak Model
@@ -18,11 +19,17 @@ dcv_model.add(Dense(10, activation='softmax', name='test_out'))
 
 
 # Load and Preprocess Data
-(data, metadata) = tfds.load('imagenette/320px-v2',split=['train[:90%]', 'train[90%:]', 'validation'],as_supervised=True,with_info=True)
+data_path = " /storage/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV_data/imagenette2-320/imagenette2-320/train"
+data  = tf.keras.utils.image_dataset_from_directory(
+  data_path,
+  validation_split=0.2,
+  seed=123,
+  shuffle=True,
+  subset="both",
+  batch_size=None)
 
 train_ds= data[0]
 valid_ds= data[1]
-test_ds= data[2]
 
 size = (256, 256)
 def preprocess_img(img, label):
