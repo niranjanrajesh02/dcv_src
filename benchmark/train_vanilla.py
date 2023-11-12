@@ -10,7 +10,7 @@ from keras.callbacks import CSVLogger
 
 
 model_path = "/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Models/p2_model.h5"
-results_path = '/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Results'
+results_path = '/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/v_Results'
 data_path = "/storage/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV_data/imagenette2-320/imagenette2-320/train"
 
 # Load and Tweak Model
