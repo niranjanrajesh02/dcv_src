@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+
+
 results_path = '/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Results'
 
 def plot_accuracy(history, model="Model"):
