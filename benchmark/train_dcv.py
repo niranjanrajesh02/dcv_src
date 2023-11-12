@@ -6,7 +6,6 @@ import tensorflow_datasets as tfds
 from bench_utils import plot_accuracy, plot_loss
 from keras.optimizers import Adam
 from keras.layers import Dense, Conv2D
-import tfds_nightly
 
 
 # Load and Tweak Model
