@@ -6,11 +6,14 @@ import tensorflow_datasets as tfds
 from bench_utils import plot_accuracy, plot_loss
 from keras.optimizers import Adam
 from keras.layers import Dense, Conv2D
+from keras.callbacks import CSVLogger
 
+
+model_path = "/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Models/p2_model.h5"
+results_path = '/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Results'
+data_path = "/storage/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV_data/imagenette2-320/imagenette2-320/train"
 
 # Load and Tweak Model
-model_path = "/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Models/p2_model.h5"
-
 dcv_model = tf.keras.models.load_model(model_path)
 dcv_model = tf.keras.models.Sequential(dcv_model.layers[:-1])
 dcv_model.add(Dense(10, activation='softmax', name='test_out'))
@@ -18,7 +21,7 @@ dcv_model.add(Dense(10, activation='softmax', name='test_out'))
 
 
 # Load and Preprocess Data
-data_path = "/storage/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV_data/imagenette2-320/imagenette2-320/train"
+
 data  = tf.keras.utils.image_dataset_from_directory(
   data_path,
   validation_split=0.2,
@@ -44,18 +47,19 @@ valid_ds = valid_ds.map(preprocess_img).batch(32)
 
 
 # Model Setup
+csv_logger = CSVLogger(f"{results_path}/dcv_history.csv", append=True)
 early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=5, restore_best_weights=True)
 dcv_model.compile(loss="sparse_categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
 
 print("Starting to train model ...")
-history = dcv_model.fit(train_ds, validation_data=valid_ds, epochs=100, batch_size=32, verbose=1, callbacks=[early_stop])
+history = dcv_model.fit(train_ds, validation_data=valid_ds, epochs=1, batch_size=32, verbose=1, callbacks=[early_stop, csv_logger])
 print("Model training complete")
 
 
 plot_accuracy(history)
 plot_loss(history)
 
-results_path = '/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Results'
+
 model_path = results_path+'/bench_dcv.h5'
 model.save(model_path)
 print("Model saved to: ", model_path)
