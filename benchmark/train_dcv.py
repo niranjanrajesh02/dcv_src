@@ -52,7 +52,7 @@ early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=5, re
 dcv_model.compile(loss="sparse_categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
 
 print("Starting to train model ...")
-history = dcv_model.fit(train_ds, validation_data=valid_ds, epochs=1, batch_size=32, verbose=1, callbacks=[early_stop, csv_logger])
+history = dcv_model.fit(train_ds, validation_data=valid_ds, epochs=100, batch_size=32, verbose=1, callbacks=[early_stop, csv_logger])
 print("Model training complete")
 
 
