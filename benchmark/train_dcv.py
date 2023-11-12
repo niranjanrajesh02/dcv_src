@@ -41,7 +41,6 @@ def preprocess_img(img, label):
 
 train_ds = train_ds.map(preprocess_img).batch(32)
 valid_ds = valid_ds.map(preprocess_img).batch(32)
-test_ds = test_ds.map(preprocess_img)
 
 
 # Model Setup
