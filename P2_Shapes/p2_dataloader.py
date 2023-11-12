@@ -87,10 +87,6 @@ def train_test(env):
     
     
     
-
-    
-    
-    
 if __name__ == "__main__":
     
     train_data, valid_data, class_names = make_dataset('local')
