@@ -3,11 +3,12 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from keras import datasets, layers, models
 import tensorflow_datasets as tfds
-from bench_utils import plot_accuracy, plot_loss
+from bench_utils import plot_accuracy, plot_loss, augment, preprocess_img
 from keras.optimizers import Adam
 from keras.layers import Dense, Conv2D
 from keras.callbacks import CSVLogger
 
+AUTOTUNE = tf.data.AUTOTUNE
 
 model_path = "/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/Models/p2_model.h5"
 results_path = '/home/niranjan.rajesh_asp24/niranjan.rajesh_ug23/DCV/dcv_src/benchmark/v_Results'
@@ -29,7 +30,7 @@ data  = tf.keras.utils.image_dataset_from_directory(
   shuffle=True,
   subset="both",
   labels="inferred",
-  label_mode="int",
+  label_mode="categorical",
   batch_size=None)
 
 train_ds= data[0]
@@ -41,15 +42,24 @@ def preprocess_img(img, label):
   img = tf.image.resize(img, size)
   return img, label
 
-
-train_ds = train_ds.map(preprocess_img).batch(32)
-valid_ds = valid_ds.map(preprocess_img).batch(32)
-
+counter = tf.data.experimental.Counter()
+train_ds = tf.data.Dataset.zip((train_datasets, (counter, counter)))
+train_ds = (
+    train_ds
+    .map(augment, num_parallel_calls=AUTOTUNE)
+    .batch(32)
+    .prefetch(AUTOTUNE)
+)
+valid_ds = (
+    valid_ds
+    .batch(32)
+    .prefetch(AUTOTUNE)
+)
 
 # Model Setup
-csv_logger = CSVLogger(f"{results_path}/dcv_history.csv", append=True)
-early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, restore_best_weights=True)
-vanilla_model.compile(loss="sparse_categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
+csv_logger = CSVLogger(f"{results_path}/vanilla_history.csv", append=True)
+early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+vanilla_model.compile(loss="categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
 
 print("Starting to train model ...")
 history = vanilla_model.fit(train_ds, validation_data=valid_ds, epochs=100, batch_size=32, verbose=1, callbacks=[early_stop, csv_logger])
