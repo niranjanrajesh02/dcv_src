@@ -30,11 +30,11 @@ data  = tf.keras.utils.image_dataset_from_directory(
   shuffle=True,
   subset="both",
   labels="inferred",
-  label_mode="categorical",
+  label_mode="int",
   batch_size=None)
 
-train_ds= data[0]
-valid_ds= data[1]
+train_ds = data[0]
+valid_ds = data[1]
 
 size = (256, 256)
 def preprocess_img(img, label):

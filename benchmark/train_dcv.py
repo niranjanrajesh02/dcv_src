@@ -31,11 +31,11 @@ data  = tf.keras.utils.image_dataset_from_directory(
   shuffle=True,
   subset="both",
   labels="inferred",
-  label_mode="categorical",
+  label_mode="int",
   batch_size=None)
 
-train_ds= data[0]
-valid_ds= data[1]
+train_ds = data[0]
+valid_ds = data[1]
 
 
 
@@ -67,7 +67,6 @@ print("Model training complete")
 
 plot_accuracy(history, "DCV")
 plot_loss(history, "DCV")
-
 
 model_path = results_path+'/bench_dcv.h5'
 dcv_model.save(model_path)
