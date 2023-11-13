@@ -57,11 +57,11 @@ valid_ds = (
 
 # Model Setup
 csv_logger = CSVLogger(f"{results_path}/dcv_history.csv", append=True)
-early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, restore_best_weights=True)
+early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 dcv_model.compile(loss="categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
 
 print("Starting to train model ...")
-history = dcv_model.fit(train_ds, validation_data=valid_ds, epochs=1, batch_size=32, verbose=1, callbacks=[early_stop, csv_logger])
+history = dcv_model.fit(train_ds, validation_data=valid_ds, epochs=100, batch_size=32, verbose=1, callbacks=[early_stop, csv_logger])
 print("Model training complete")
 
 

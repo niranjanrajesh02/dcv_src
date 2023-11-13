@@ -43,7 +43,7 @@ def preprocess_img(img, label):
   return img, label
 
 counter = tf.data.experimental.Counter()
-train_ds = tf.data.Dataset.zip((train_datasets, (counter, counter)))
+train_ds = tf.data.Dataset.zip((train_ds, (counter, counter)))
 train_ds = (
     train_ds
     .map(augment, num_parallel_calls=AUTOTUNE)
