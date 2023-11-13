@@ -35,13 +35,13 @@ def plot_loss(history, model="Model"):
     
 def augment(image_label, seed):
   image, label = image_label
-
   new_seed = tf.random.split(seed, num=1)[0, :]
   # Random brightness.
   image = tf.image.stateless_random_brightness(
-      image, max_delta=0.5, seed=new_seed)
+      image, max_delta=0.2, seed=new_seed)
   # Random rotation
   image = tf.image.stateless_random_flip_left_right(image, seed)
+  image = tf.image.stateless_random_flip_up_down(image, seed)
   image = tf.clip_by_value(image, 0, 1)
   return image, label
 
