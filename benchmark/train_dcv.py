@@ -40,7 +40,7 @@ valid_ds= data[1]
 
 
 counter = tf.data.experimental.Counter()
-train_ds = tf.data.Dataset.zip((train_datasets, (counter, counter)))
+train_ds = tf.data.Dataset.zip((train_ds, (counter, counter)))
 train_ds = (
     train_ds
     .map(augment, num_parallel_calls=AUTOTUNE)
