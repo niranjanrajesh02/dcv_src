@@ -59,7 +59,7 @@ valid_ds = (
 # Model Setup
 csv_logger = CSVLogger(f"{results_path}/vanilla_history.csv", append=True)
 early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True, start_from_epoch=10)
-vanilla_model.compile(loss="categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
+vanilla_model.compile(loss="sparse_categorical_crossentropy", optimizer=Adam(), metrics=["accuracy"])
 
 print("Starting to train model ...")
 history = vanilla_model.fit(train_ds, validation_data=valid_ds, epochs=100, batch_size=32, verbose=1, callbacks=[early_stop, csv_logger])
